@@ -158,10 +158,15 @@ function initCounters() {
                 const target = +counter.getAttribute('data-target');
                 gsap.to(counter, {
                     innerText: target,
-                    duration: 3, // Increased duration for better feel
+                    duration: 3,
                     snap: { innerText: 1 },
                     ease: "power2.out"
                 });
+            });
+        },
+        onLeaveBack: () => {
+            counters.forEach(counter => {
+                gsap.set(counter, { innerText: 0 }); // Reset when scrolling back up
             });
         }
     });
@@ -180,7 +185,7 @@ function initReveals() {
             scrollTrigger: {
                 trigger: el,
                 start: "top 90%",
-                toggleActions: "play none none none"
+                toggleActions: "play reverse play reverse" // Now works both ways
             }
         });
     });
